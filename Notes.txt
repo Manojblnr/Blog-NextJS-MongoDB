@@ -1,0 +1,135 @@
+// Blog project using NextJS and MongoDB
+
+
+1. create nextjs project:   npx create-next-app@latest
+
+2. To run :  npm run dev
+
+3. creating Home page
+
+4. creating Header and Footer and add it into layout file
+
+5. Creating About and Contact page
+
+6. Navigation Links for nav bar
+
+7. post list API
+    For this need MongoDB database setup
+
+    connecting Local database, MongoDB with NextJS
+
+        1. In the root folder create .env.local file
+        code : MONGO_URI = "mongodb://localhost:27017/nextjs_blog_mongoDB"
+
+        2. Write a mongodb connection code in the utils folder connectMongo.js file
+        
+        3. Install Mongoose : npm i Mongoose
+
+        4. In the connectMongo.js file  
+            code:
+                import mongoose from "mongoose";
+
+                const connectMongo = async () => mongoose.connect(process.env.MONGO_URI)
+
+                export default connectMongo;
+
+        
+        5. Create post Model using Mongoose 
+            1. Create models folder, file postModel.js in that first create schema
+                then use the schema in the postModel
+            
+        6. create API for handling request and response
+            1. create api folder in app, then posts folder, route.js file
+                It consists of all the API methods for posts
+            
+            2. Add posts data into mongodb 
+                using GET api method in posts get the data saved
+
+
+ref: https://www.youtube.com/watch?v=iNSf_7RyaXw
+
+8. Show Post List using API
+    1. Using useState and useEffect hook get the posts from the mongodb and show it
+    in the app, layout.tsx file using map
+
+    1. public environment variables 
+        Usually the client component, easily can't access to the .env variables
+        because of security issues.
+
+        For solve, this keyword should use before the variable : NEXT_PUBLIC
+
+9. Custom field in Post data
+    1. while showing the post description, its too big, for that, we are going to create access
+        custom field using , for that pass this in postSchema 
+            code: {toJSON: {virtuals: true}}
+            
+        So now we can use custom field in that model, but those field not saved in database.
+
+10. create post detail page
+    1. create post folder and [id] folder for getting the id of post
+    2. create page file write code for post detail page
+
+11. create post details API
+    1. create post folder in api then create [id] folder and route.js file
+    2. In that file create GET function for fetching data from DB based on id getting from params.
+
+12. changing Date format
+    1. Add date field and date in mongodb directly.
+    2. For edit the date format 
+    3. For that create virtual field for formatted date, and use the function to change the date format.
+
+13. Showing Post Details using API
+    1.  In the post/[id] folder page file get the id from url using params,
+    2. using useEffect hook fetch request to using that id 
+    3. store the data in the post state
+    4. Use that state value , and show it in the ui part
+
+14. Implementing post search
+    In the search option we will pass query params through url, then it will get the results matched from the
+    database title and description.
+
+    1. ex url:  http://localhost:3000/api/posts?q=chess
+
+    2. ? symbol for query and q is params and chess is the value of params
+
+    3. In the posts folder route.js file
+
+    4. get the query params, if query is there excute if part, in that, query needs to check
+       more than one field, so using or operator and pass the query for two fields and mention 
+       i for case insensitive. else part, no query passed it will show all the posts.
+
+    5. For avoiding extra request here, while searching before showing result, the user may be click
+       search button multiple times, it makes more requests, to avoid this, will create search state,
+       if the search button pressed, then this button will disabled and text show loading ... once search
+       completed, the button backs to normal.    
+    
+    6. If no search result found show the text of no result found and the search query
+
+    7. some user press enter key for searching, for that
+
+15. Creating Enquery model in contact form 
+    1. create enqueryModel.js add fields and types.
+
+16. creating Enquery API
+    1. create enquiry and route file, in that add function for submit the data to database.
+
+17. Add validation for Enquiry model
+    1. Add validation for the field is mandatory.
+    2. For that add required field in the object
+
+18. customizing error message
+    1. for seeing the error message in catch block use _message instead of message
+
+19. Integrating Contact Form with API
+    In the contact page file add form submit functionalities.
+
+20. Testing contact Form
+    add the data to /contact url and save the data to database
+
+21. Using Meta data
+
+
+
+
+
+
